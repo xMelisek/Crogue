@@ -20,7 +20,7 @@ public class BasicEnemyAI : BaseAI
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var obj = collision.gameObject;
-        if (obj.CompareTag("Player"))
+        if (obj.CompareTag("Player") && !obj.GetComponent<PlayerBehaviour>().invincible)
             obj.GetComponent<PlayerBehaviour>().TakeDamage(damage);
     }
 
@@ -32,6 +32,6 @@ public class BasicEnemyAI : BaseAI
 
     public override void Die()
     {
-
+        Destroy(gameObject);
     }
 }

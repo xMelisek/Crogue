@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -26,8 +27,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !dashCD)
-            StartCoroutine(Dash());
+        //transfokrm.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(transform.rotation.x, transform.rotation.y, Mathf.Atan2(fixedJoystick.Vertical, fixedJoystick.Horizontal), transform.rotation.w), lerpSpeed);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            Dash();
     }
 
     private void LateUpdate()
@@ -37,6 +40,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Vector3 direction = new Vector3(fixedJoystick.Horizontal, fixedJoystick.Vertical);
+        //Quaternion toRotation = Quaternion.FromToRotation(transform.up, direction);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, lerpSpeed * Time.time);
         if (!dashing)
         {
             rb.AddForce(new Vector2(fixedJoystick.Horizontal, fixedJoystick.Vertical).normalized * movementSpeed);
@@ -58,6 +64,12 @@ public class PlayerBehaviour : MonoBehaviour
         //Death logic
     }
 
+    public void Dash()
+    {
+        if(!dashCD)
+            StartCoroutine(DashCoroutine());
+    }
+
     IEnumerator Invincible(float time)
     {
         invincible = true;
@@ -66,13 +78,15 @@ public class PlayerBehaviour : MonoBehaviour
         yield break;
     }
 
-    IEnumerator Dash()
+    IEnumerator DashCoroutine()
     {
         dashCD = true;
         dashing = true;
+        invincible = true;
         rb.AddForce(rb.velocity * dashForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.5f);
         dashing = false;
+        invincible = false;
         yield return new WaitForSeconds(1.5f);
         dashCD = false;
         yield break;
@@ -80,7 +94,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if(collision.gameObject.CompareTag("Enemy") && dashing)
         {
             collision.gameObject.GetComponent<BasicEnemyAI>().TakeDamage(Damage);
         }

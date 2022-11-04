@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class EntityManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Tooltip("Bottom left point of the arena")]
+    public Vector3 blp;
+    [Tooltip("Top right point of the arena")]
+    public Vector3 trp;
+    public float minSpawnDist;
+    public GameObject[] enemies;
+    public int maxEntityCount = 10;
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length < maxEntityCount)
+        {
+            if (Random.Range(1, 50) == 1)
+            {
+                for(int i = 0; i < 100; i++)
+                {
+                    Vector3 spawnpos = new Vector3(Random.Range(blp.x, trp.x), Random.Range(blp.y, trp.y), 0);
+                    if (Vector3.Distance(Camera.main.transform.position, spawnpos) < minSpawnDist)
+                        continue;
+                    Instantiate(enemies[Random.Range(0, enemies.Length)], spawnpos, Quaternion.identity);
+                    break;
+                }
+            }
+        }
     }
 }
