@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Drawing;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -27,26 +28,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        //transfokrm.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(transform.rotation.x, transform.rotation.y, Mathf.Atan2(fixedJoystick.Vertical, fixedJoystick.Horizontal), transform.rotation.w), lerpSpeed);
-
+        transform.up = Vector3.Lerp(transform.up, new Vector3(fixedJoystick.Horizontal, fixedJoystick.Vertical), lerpSpeed);
         if (Input.GetKeyDown(KeyCode.Space))
             Dash();
     }
 
-    private void LateUpdate()
-    {
-        camTransform.position = Vector3.SmoothDamp(camTransform.position, new Vector3(transform.position.x, transform.position.y, -10), ref camVel, lerpSpeed);
-    }
-
     private void FixedUpdate()
     {
-        //Vector3 direction = new Vector3(fixedJoystick.Horizontal, fixedJoystick.Vertical);
-        //Quaternion toRotation = Quaternion.FromToRotation(transform.up, direction);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, lerpSpeed * Time.time);
+        camTransform.position = Vector3.SmoothDamp(camTransform.position, new Vector3(transform.position.x, transform.position.y, -10), ref camVel, lerpSpeed);
+
         if (!dashing)
         {
-            rb.AddForce(new Vector2(fixedJoystick.Horizontal, fixedJoystick.Vertical).normalized * movementSpeed);
-            rb.velocity = velocity;
+            rb.velocity = new Vector2(fixedJoystick.Horizontal, fixedJoystick.Vertical).normalized * movementSpeed;
         }
     }
 
