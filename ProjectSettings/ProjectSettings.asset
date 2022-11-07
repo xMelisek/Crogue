@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: Indev-5
+  bundleVersion: Indev-7
   preloadedAssets:
   - {fileID: 1646366148043727574, guid: 9c3af12c60728ab4690308e7f18bd046, type: 2}
   metroInputSource: 0
@@ -155,11 +155,11 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.DefaultCompany.com.unity.template.mobile2D
-    Lumin: com.DefaultCompany.com.unity.template.mobile2D
-    Standalone: com.DefaultCompany.com.unity.template.mobile2D
-    iPhone: com.DefaultCompany.com.unity.template.mobile2D
-    tvOS: com.DefaultCompany.com.unity.template.mobile2D
+    Android: com.Melisek.Crogue
+    Lumin: com.Melisek.Crogue
+    Standalone: com.Melisek.Crogue
+    iPhone: com.Melisek.Crogue
+    tvOS: com.Melisek.Crogue
   buildNumber:
     Standalone: 0
     iPhone: 0

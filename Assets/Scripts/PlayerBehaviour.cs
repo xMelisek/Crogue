@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -54,7 +55,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Die()
     {
-        //Death logic
+        Destroy(gameObject);
+        SceneManager.LoadScene("Game");
     }
 
     public void Dash()
