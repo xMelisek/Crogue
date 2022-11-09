@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
 
 [CustomEditor(typeof(Joystick), true)]
 public class JoystickEditor : Editor
@@ -37,7 +35,7 @@ public class JoystickEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
 
-        if(handle != null)
+        if (handle != null)
         {
             RectTransform handleRect = (RectTransform)handle.objectReferenceValue;
             handleRect.anchorMax = center;

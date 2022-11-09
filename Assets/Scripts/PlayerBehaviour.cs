@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -19,12 +17,13 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 camVel;
     private Rigidbody2D rb;
     private Transform camTransform;
-    private Vector2 velocity;
+    private BoxCollider2D bCollider;
 
     private void Start()
     {
         camTransform = Camera.main.transform;
         rb = GetComponent<Rigidbody2D>();
+        bCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -61,7 +60,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Dash()
     {
-        if(!dashCD)
+        if (!dashCD)
             StartCoroutine(DashCoroutine());
     }
 
@@ -78,20 +77,27 @@ public class PlayerBehaviour : MonoBehaviour
         dashCD = true;
         dashing = true;
         invincible = true;
+        bCollider.isTrigger = true;
         rb.AddForce(rb.velocity * dashForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.5f);
         dashing = false;
         invincible = false;
+        bCollider.isTrigger = false;
         yield return new WaitForSeconds(1.5f);
         dashCD = false;
         yield break;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy") && dashing)
+        if (collision.gameObject.CompareTag("Enemy") && dashing)
         {
             collision.gameObject.GetComponent<BasicEnemyAI>().TakeDamage(Damage);
+        }
+        else if (collision.gameObject.CompareTag("Border") && dashing)
+        {
+            dashing = false;
+            bCollider.isTrigger = false;
         }
     }
 }

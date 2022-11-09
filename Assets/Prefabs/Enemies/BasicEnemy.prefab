@@ -101,7 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   damage: 15
-  moveSpeed: 0.01
+  moveSpeed: 0.75
+  lerpSpeed: 0.2
 --- !u!61 &4531298349385500661
 BoxCollider2D:
   m_ObjectHideFlags: 0

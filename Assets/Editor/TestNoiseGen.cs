@@ -1,4 +1,3 @@
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 // Create a texture and fill it with Perlin noise.

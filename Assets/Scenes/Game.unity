@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 637266926}
   m_Layer: 0
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3421,6 +3421,10 @@ MonoBehaviour:
     height: 0.2
   - prefab: {fileID: 6284086970298514094, guid: cee30ca517bd3904390bbcd7699e7eb8, type: 3}
     height: 0.35
+  - prefab: {fileID: 0}
+    height: 0.8
+  - prefab: {fileID: 6284086970298514094, guid: f8a840bcaf3485f45893a756c49d7c57, type: 3}
+    height: 0.9
 --- !u!4 &2078405523
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -12,7 +10,7 @@ public class UIScript : MonoBehaviour
     public void DashClick()
     {
         var player = FindObjectOfType<PlayerBehaviour>();
-        if((bool) player) player.Dash();
+        if ((bool)player) player.Dash();
     }
 
     public void PauseClick(bool trigger)

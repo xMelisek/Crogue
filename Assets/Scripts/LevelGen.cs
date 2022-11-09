@@ -68,6 +68,7 @@ public class LevelGen : MonoBehaviour
                 {
                     if (noiseMap[x, y] < layer.height)
                     {
+                        if (!(bool) layer.prefab) break;
                         var prefab = Instantiate(layer.prefab, new Vector3(startPoint.x + x * xInterval, startPoint.y + y * yInterval, startPoint.z), Quaternion.identity);
                         prefab.transform.SetParent(transform, true);
                         break;
