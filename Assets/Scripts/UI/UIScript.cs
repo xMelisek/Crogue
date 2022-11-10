@@ -7,6 +7,12 @@ public class UIScript : MonoBehaviour
     [SerializeField] private GameObject options;
     private float savedTimeScale;
 
+    private void Start()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+    }
+
     public void DashClick()
     {
         var player = FindObjectOfType<PlayerBehaviour>();
