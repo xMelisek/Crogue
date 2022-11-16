@@ -103,6 +103,7 @@ MonoBehaviour:
   damage: 15
   moveSpeed: 0.75
   lerpSpeed: 0.2
+  deathPart: {fileID: 1025166861280258741, guid: c6a4d3fdec36a704f9f099fd969129b5, type: 3}
 --- !u!61 &4531298349385500661
 BoxCollider2D:
   m_ObjectHideFlags: 0

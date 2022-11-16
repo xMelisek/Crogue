@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool dashCD = false;
     public bool dashing = false;
     public bool invincible = false;
+    public GameObject deathPart;
     private Vector3 camVel;
     private Rigidbody2D rb;
     private Transform camTransform;
@@ -54,8 +55,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Die()
     {
+        ParticleBehaviour partBehaviour = Instantiate(deathPart, transform.position, Quaternion.identity).GetComponent<ParticleBehaviour>();
+        partBehaviour.StartCoroutine(partBehaviour.KillAfter(3f));
+        var uIScript = FindObjectOfType<UIScript>();
+        uIScript.HUD = false;
+        uIScript.StartCoroutine(uIScript.ToggleDeathUI());
         Destroy(gameObject);
-        SceneManager.LoadScene("Game");
     }
 
     public void Dash()

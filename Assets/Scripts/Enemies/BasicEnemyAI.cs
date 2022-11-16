@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BasicEnemyAI : BaseAI
@@ -6,6 +7,7 @@ public class BasicEnemyAI : BaseAI
     public float damage = 15f;
     public float moveSpeed = 0.5f;
     public float lerpSpeed = 0.2f;
+    public GameObject deathPart;
     Rigidbody2D rb;
     Transform target;
 
@@ -17,7 +19,13 @@ public class BasicEnemyAI : BaseAI
     private void FixedUpdate()
     {
         if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+        {
+            try
+            {
+                target = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+            catch (NullReferenceException) { Debug.Log("No player detected!"); }
+        }
         else
             rb.velocity = Vector2.Lerp(rb.velocity, Vector3.MoveTowards(transform.position, target.position, moveSpeed) - transform.position, lerpSpeed);
     }
@@ -37,6 +45,8 @@ public class BasicEnemyAI : BaseAI
 
     public override void Die()
     {
+        ParticleBehaviour partBehaviour = Instantiate(deathPart, transform.position, Quaternion.identity).GetComponent<ParticleBehaviour>();
+        partBehaviour.StartCoroutine(partBehaviour.KillAfter(6f));
         Destroy(gameObject);
     }
 }
