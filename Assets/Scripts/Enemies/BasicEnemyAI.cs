@@ -24,7 +24,7 @@ public class BasicEnemyAI : BaseAI
             {
                 target = GameObject.FindGameObjectWithTag("Player").transform;
             }
-            catch (NullReferenceException) { Debug.Log("No player detected!"); }
+            catch (NullReferenceException) { }
         }
         else
             rb.velocity = Vector2.Lerp(rb.velocity, Vector3.MoveTowards(transform.position, target.position, moveSpeed) - transform.position, lerpSpeed);
