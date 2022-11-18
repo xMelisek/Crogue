@@ -37,10 +37,15 @@ public class BasicEnemyAI : BaseAI
             obj.GetComponent<PlayerBehaviour>().TakeDamage(damage);
     }
 
-    public override void TakeDamage(float dmgVal)
+    public override bool TakeDamage(float dmgVal)
     {
         health -= dmgVal;
-        if (health <= 0) Die();
+        if (health <= 0) 
+        {
+            Die();
+            return true;
+        }
+        return false;
     }
 
     public override void Die()
