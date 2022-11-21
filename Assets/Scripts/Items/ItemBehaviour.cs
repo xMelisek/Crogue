@@ -19,7 +19,7 @@ public class ItemBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<PlayerBehaviour>().AddItem(item);
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 }
