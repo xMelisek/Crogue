@@ -5,19 +5,30 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    //Stats
     public readonly float baseHealth = 100f;
     public float Health { get; private set; }
     public float MaxHealth { get; private set; }
-    private float Damage { get; set; } = 10f;
-    public List<Item> Items { get; private set; }
-    [SerializeField] private FixedJoystick fixedJoystick;
-    public float movementSpeed = 5f;
+
+    public readonly float baseDamage = 10f;
+    private float Damage { get; set; }
+
+    public readonly float baseMoveSpeed = 5f;
+    public float movementSpeed { get; private set; }
+
+    //Other variables
+    public List<Item> Items { get; private set; } = new List<Item>();
+    
     public float lerpSpeed = 0.2f;
     public float dashForce = 100f;
     public float iTime = 1f;
+
     public bool dashCD = false;
     public bool dashing = false;
     public bool invincible = false;
+
+    //References
+    [SerializeField] private FixedJoystick fixedJoystick;
     public GameObject deathPart;
     private Vector3 camVel;
     private Rigidbody2D rb;
@@ -30,7 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Start()
     {
         Health = baseHealth;
-        MaxHealth = baseHealth;
+        RecalcStats();
         camTransform = Camera.main.transform;
         rb = GetComponent<Rigidbody2D>();
         bCollider = GetComponent<BoxCollider2D>();
@@ -79,7 +90,28 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddItem(Item item)
     {
         Items.Add(item);
+        RecalcStats();
         //Update item HUD or something like that if i add one
+    }
+
+    private void RecalcStats()
+    {
+        float damage = 0f;
+        float health = 0f;
+        float moveSpeed = 0f;
+
+        foreach (var item in Items)
+        {
+            damage += item.Damage;
+            health += item.Health;
+            moveSpeed += item.Speed;
+        }
+        
+        Damage = baseDamage + damage;
+        MaxHealth = baseHealth + health;
+        Health = Mathf.Clamp(Health + health, 0, MaxHealth);
+        movementSpeed = baseMoveSpeed + moveSpeed;
+        Debug.Log($"Stats: Damage: {Damage}, Health: {Health}, Max Health: {MaxHealth}, Speed: {movementSpeed}");
     }
 
     /// <summary>

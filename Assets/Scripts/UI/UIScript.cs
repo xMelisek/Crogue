@@ -16,7 +16,7 @@ public class UIScript : MonoBehaviour
     [SerializeField] private GameObject pause;
     [SerializeField] private GameObject options;
     [SerializeField] private GameObject deathUI;
-    [SerializeField] private Slider slider;
+    [SerializeField] private Slider healthBar;
 
     private float savedTimeScale;
 
@@ -76,7 +76,7 @@ public class UIScript : MonoBehaviour
 
     private void UpdateHealthBar(float[] health)
     {
-        slider.maxValue = health[1];
-        slider.value = health[0];
+        healthBar.maxValue = health[1];
+        healthBar.value = health[0];
     }
 }
