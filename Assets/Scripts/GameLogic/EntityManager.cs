@@ -8,13 +8,13 @@ public class EntityManager : MonoBehaviour
     public Vector3 trp;
     public float minSpawnDist;
     public GameObject[] enemies;
-    public int maxEntityCount = 10;
+    public int maxEntityCount = 20;
 
     private void FixedUpdate()
     {
         if (GameObject.FindGameObjectsWithTag("Enemy").Length < maxEntityCount)
         {
-            if (Random.Range(1, 50) == 1)
+            if (Random.Range(1, (int)Mathf.Clamp(50 - Time.time / 100f, 5f, 50f)) == 1)
             {
                 for (int i = 0; i < 100; i++)
                 {
